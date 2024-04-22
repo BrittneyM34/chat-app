@@ -19,7 +19,7 @@ const Start = ({ navigation }) => {
                 {/* App title */}
                 <Text style={styles.title}>Chat App</Text>
 
-                <View styles={styles.box}>
+                <View style={styles.box}>
                     <TextInput
                         style={styles.textInput}
                         value={name}
@@ -84,6 +84,11 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         color: '#757083',
         opacity: 50,
+        padding: 15,
+        borderWidth: 1,
+        marginTop: 15,
+        marginBottom: 15,
+        borderColor: '#757083',
     },
     chooseBackgroundColor: {
         fontSize: 16,
