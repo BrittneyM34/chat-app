@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     chooseBackgroundColor: {
         fontSize: 16,
         fontWeight: '300',
-        color: ' #757083',
+        color: '#757083',
         opacity: 100,
     },
     colorButtonBox: {
