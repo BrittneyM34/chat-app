@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { useState } from 'react';
 
 const Start = ({ navigation }) => {
@@ -33,6 +33,9 @@ const Start = ({ navigation }) => {
                         {colors.map((color, index) => (
                             <TouchableOpacity
                                 key={index}
+                                accessibility={true}
+                                accessibilityRole="button"
+                                accessibilityHint="Select color for chatroom background"
                                 style={[styles.colorButton, { backgroundColor: color }, background === color && styles.selected]}
                                 onPress={() => setBackground(color)}
                             />
@@ -41,6 +44,9 @@ const Start = ({ navigation }) => {
 
                     {/* Start chat */}
                     <TouchableOpacity
+                        accessible={true}
+                        accessibilityRole="button"
+                        accessbilityHint="Select button to enter chat room"
                         style={styles.button}
                         onPress={() => navigation.navigate('Chat', { name: name, background: background })}
                     >
@@ -48,6 +54,7 @@ const Start = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
+            {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
         </View>
     );
 }
@@ -118,7 +125,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#FFFFFF',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '600'
     },
 });
 
