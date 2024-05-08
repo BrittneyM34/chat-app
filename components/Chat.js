@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 const Chat = ({ route, navigation }) => {
-  const { name } = route.params;
+  const { name, background } = route.params;
   const [messages, setMessages] = useState([]);
-
   const onSend = (newMessages) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
   }
@@ -47,7 +46,7 @@ const Chat = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: background}]}>
       <GiftedChat
         messages={messages}
         renderBubble={renderBubble}
