@@ -1,14 +1,15 @@
 import { KeyboardAvoidingView, View, Platform, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { collection, onSnapshot, query, orderBy, addDoc } from "firebase/firestore";
 
-const Chat = ({ route, navigation }) => {
-  const { name, background } = route.params;
+const Chat = ({ route, navigation, db }) => {
+  const { name, background, userID } = route.params;
+
   const [messages, setMessages] = useState([]);
   const onSend = (newMessages) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
+    addDoc(collection(db, "messages"), newMessages[0])
   }
-
   const renderBubble = (props) => {
     return <Bubble
       {...props}
@@ -24,35 +25,36 @@ const Chat = ({ route, navigation }) => {
   }
 
   useEffect(() => {
-    navigation.setOptions({ title: name })
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-      {
-        _id: 2,
-        text: 'You have entered the chat',
-        createdAt: new Date(),
-        system: true,
-      },
-    ]);
+    navigation.setOptions({ title: name });
+
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+    const unsubChat = onSnapshot(q, (chatData) => {
+      let newMessages = [];
+      chatData.forEach(message => {
+        let newChat = {
+          ...message.data(),
+          createdAt: new Date(message.data().createdAt.seconds * 1000)
+        };
+        newMessages.push(newChat);
+      })
+      setMessages(newMessages);
+    })
+    // Clean up returned function
+    return () => {
+      if (unsubChat) unsubChat();
+    }
   }, []);
 
   return (
-    <View style={[styles.container, {backgroundColor: background}]}>
+    <View style={[styles.container, { backgroundColor: background }]}>
       <GiftedChat
         messages={messages}
         renderBubble={renderBubble}
         onSend={messages => onSend(messages)}
         user={{
-          _id: 1
+          _id: 1,
+          _id: userID,
+          name: name
         }}
       />
       {Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
