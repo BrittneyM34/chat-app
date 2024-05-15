@@ -68,7 +68,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
       let cachedChats = await AsyncStorage.getItem("chats");
       return cachedChats != null ? JSON.parse(cachedChats) : [];
     } catch (error) {
-      Alert.alert("Unable to load chached messages");
+      Alert.alert("Unable to load cached messages");
       return [];
     }
   }

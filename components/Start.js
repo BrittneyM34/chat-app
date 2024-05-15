@@ -11,7 +11,6 @@ const Start = ({ navigation }) => {
 
     // Anonymous sign in
     const auth = getAuth();
-
     const signInUser = () => {
         signInAnonymously(auth)
             .then(result => {
