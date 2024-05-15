@@ -66,7 +66,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
   const loadCachedChats = async () => {
     try {
       let cachedChats = await AsyncStorage.getItem("chats");
-      return cachedChats != null ? JSON.parse(cachedChats) : [];
+      setMessages(cachedChats != null ? JSON.parse(cachedChats) : [])
     } catch (error) {
       Alert.alert("Unable to load cached messages");
       return [];
@@ -77,7 +77,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
     if (isConnected) return <InputToolbar {...props} />;
     else return null
   }
-  
+
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
       <GiftedChat
