@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet, Alert } from "react-native";
 import { useActionSheet } from '@expo/react-native-action-sheet';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,6 +7,7 @@ import * as Location from 'expo-location';
 const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID }) => {
     const actionSheet = useActionSheet();
 
+    //display a menu with options (take photo, select photo, share location)
     const onActionPress = () => {
         const options = ['Choose from library', 'Take a picture', 'Send location', 'Cancel'];
         const cancelButtonIndex = options.length - 1;
@@ -83,7 +84,13 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
     }
 
     return (
-        <TouchableOpacity style={styles.container} onPress={onActionPress}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={onActionPress}
+            accessible={true}
+            accessibilityLabel="more options"
+            accessibilityHint="choose to send an image or your geolocation"
+        >
             <View style={[styles.wrapper, wrapperStyle]}>
                 <Text style={[styles.iconText, iconTextStyle]}>+</Text>
             </View>
