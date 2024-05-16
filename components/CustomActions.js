@@ -56,7 +56,7 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, userID })
         let permissions = await ImagePicker.requestCameraPermissionsAsync();
         if (permissions?.granted) {
             let result = await ImagePicker.launchCameraAsync();
-            if (!result.canceled) await uploadAndSendImage(results.assets[0].uri);
+            if (!result.canceled) await uploadAndSendImage(result.assets[0].uri);
             else Alert.alert("Permissions haven't been granted");
         }
     }
