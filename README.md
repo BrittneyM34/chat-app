@@ -68,7 +68,7 @@ for database and storage
 
 4. start the expo project
 
-`npx expo start`
+`npm start`
 
 ## Testing Options
 
