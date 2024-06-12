@@ -1,7 +1,7 @@
 # Chat App
 
 ## Project Description
-A chat app for a mobile device using React Native. The app provides users with a chat interface and gives the options to share images and location. Users are able to access exiting messages while offline. It works on both IOS and Android devices and utilizes Google Firestore/Firebase for storing messages and images. Guest authentication is handld with Google Firebase authentication.
+A chat app for a mobile device using React Native. The app provides users with a chat interface and gives the options to share images and location. Users are able to access exiting messages while offline. It works on both IOS and Android devices and utilizes Google Firestore/Firebase for storing messages and images. Guest authentication is handled with Google Firebase authentication.
 
 ##Technologies Used
 
